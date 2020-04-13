@@ -17,8 +17,6 @@ public class Main {
 		Game game = new Game(6000);
 		game.start();
 		
-		System.out.print(WIDTH+" "+HEIGHT);
-		
 	}
 	
 }
