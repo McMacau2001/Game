@@ -1,10 +1,7 @@
 package game.Entities.Player;
 
-import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
 
 import game.Entities.Entity;
 import game.Game.Game;
@@ -94,7 +91,6 @@ public class Player extends Entity {
 				animation.runSprite(attack_left, 4, false);
 			
 		}
-		
 
 		animation.runAnimation();
 	}
@@ -116,34 +112,17 @@ public class Player extends Entity {
 	@Override
 	public void draw(Draw draw) {
 		animation.drawAnimation(draw, x()-9, y()-11, 0,0, false, 0);	
-		
-		/*
-		if(positionToGo != null) {
-			Point2D player = new Point((int)(x() + width()/ 2), (int)(y() + height()/2));
-			draw.drawRect((int)positionToGo.getX(), (int)positionToGo.getY(), 2, 2);
-			draw.drawLine((int)player.getX(), (int)player.getY(), (int)positionToGo.getX(), (int)positionToGo.getY());
-		}
-		*/
 
 	}
 	
-	public void movePlayerTo(int x, int y) {
-		this.positionToGo = new Point(x, y);
-	}
-
 	@Override
 	public void collideWithEntity(Entity e, int position) {
-
+		
 	}
 
 	@Override
 	public void collideWithTile(Object t, int position) {
 
-	}
-	
-	public void teleportPlayer(Point2D point) {
-		teleport(point);
-		positionToGo = null;
 	}
 
 	

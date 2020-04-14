@@ -30,7 +30,7 @@ public class Bat extends Entity {
 		super(new Rectangle(0, 0, 14, 12), false);
 		teleport(x, y);
 		
-		sheet = new SpriteSheet(ImageManager.loadImage("bat.png"), 5, 12);
+		sheet = new SpriteSheet(ImageManager.loadImage("bat.png"), 5, 6);
 		animation = new SpriteAnimation();
 		
 		walking = new Sprite(sheet, 1, 5, false);
@@ -65,7 +65,7 @@ public class Bat extends Entity {
 
 	@Override
 	public void collideWithEntity(Entity e, int position) {
-
+		
 	}
 
 	@Override

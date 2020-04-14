@@ -75,9 +75,11 @@ public class Shape {
 		map.bindGroup(exits.get(Maths.randomInt(rand, 3, 0)));
 		map.bindGroup(randoms.get(Maths.randomInt(rand, randoms.size()-1, 0)));
 		
+		/*
 		for(int x = 0; x<=15; x++) {
 			map.getObjects().remove(Maths.randomInt(rand, map.getObjects().size()-1,0));
 		}
+		*/
 
 		
 		return map;
