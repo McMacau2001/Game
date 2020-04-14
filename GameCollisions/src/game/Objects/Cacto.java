@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import game.Game.Render.Draw;
 import game.Images.ImageManager;
+import game.Maths.Maths;
 import game.Maths.Rectangle;
 
 public class Cacto extends Object {
@@ -12,13 +13,13 @@ public class Cacto extends Object {
 
 	public Cacto() {
 		this.image = ImageManager.loadImage("cacto.png");
+		
 	}
 	
 	@Override
 	public void init() {
 		this.width = 100;
 		this.height = 100;
-		
 	}
 
 	@Override

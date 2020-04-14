@@ -18,7 +18,7 @@ public class Bush extends Object {
 	public void init() {
 		this.width = 0;
 		this.height = 0;
-		
+
 	}
 	
 	public void render(Draw draw) {

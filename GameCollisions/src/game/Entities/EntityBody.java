@@ -119,37 +119,6 @@ public class EntityBody{
 		boolean l = left.collide(rec); //4
 		boolean r = right.collide(rec); //2
 		
-		/*
-		if(velocity.x() < 0 && velocity.y() <0) {
-			if(h) position = 1;
-			else if(l) position = 4;
-		}
-		else if(velocity.x() > 0 && velocity.y() >0) {
-			if(f) position = 3;
-			else if(r) position = 2;
-		}
-		else if(velocity.x() > 0 && velocity.y() <0) {
-			if(h) position = 1;
-			else if(r) position = 2;
-		}
-		else if(velocity.x() < 0 && velocity.y() >0) {
-			if(f) position = 3;
-			else if(l) position = 4;
-		}
-		else if(velocity.x()>0) {
-			if(r) position = 2;
-		}
-		else if(velocity.x()<0) {
-			if(l) position = 4;
-		}
-		else if(velocity.y()>0) {
-			if(f) position = 3;
-		}
-		else if(velocity.y()<0) {
-			if(h) position = 1;
-		}
-		*/
-		
 		if(r && l && h)
 			position = 1;
 		else if(r && l && f)

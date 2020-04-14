@@ -1,9 +1,7 @@
 package game.Entities;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 
-import game.Game.Game;
 import game.Game.Handlers.Collisions;
 import game.Game.Render.Draw;
 import game.Map.Map;

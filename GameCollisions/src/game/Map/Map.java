@@ -48,7 +48,7 @@ public abstract class Map {
 	}
 	
 	public void roomload(Player player) {
-		player.teleportPlayer(spawn);
+		player.teleport(spawn);
 		addEntity(player);
 		load(player);
 		

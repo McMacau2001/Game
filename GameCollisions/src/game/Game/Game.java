@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 
 import game.Main;
 import game.Entities.Camera;
+import game.Entities.Mobs.Scorpion;
 import game.Entities.Player.Player;
 import game.Game.Handlers.Collisions;
 import game.Game.Handlers.KeyInput;
@@ -159,7 +160,6 @@ public class Game extends Canvas implements Runnable {
 		
 		//TODO a shape nao precisa de bioma....
 		Shape shape = ShapeLoader.loadTiledMap("map2.json", Biomes.FOREST.getTile());
-		
 		rooms.put("A",activeRoom = new MapA(this, shape, Biomes.FOREST));
 	
 		activeRoom.roomload(player);
@@ -191,9 +191,9 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		
-		//draw.drawString("Vem Monstro", 5*5, 70, 10, -100, false);
-		//draw.drawString("DEVE SER DEVE", 10, 150, 5*5 + 10, -100, false);
-		//draw.drawString("IRINEU", 7, player.x()-15, player.y()-12, -100, true);
+		draw.drawString("Vem Monstro", 5*5, 70, 10, -100, false);
+		draw.drawString("DEVE SER DEVE", 10, 150, 5*5 + 10, -100, false);
+		draw.drawString("IRINEU", 7, player.x()-15, player.y()-12, -100, true);
 		
 		render.render(g, draw, this, player);
 		
