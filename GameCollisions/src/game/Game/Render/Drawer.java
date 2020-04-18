@@ -14,7 +14,7 @@ public class Drawer {
 	
 	private BufferedImage image;
 	
-	public Drawer(BufferedImage image, int x, int y, int width, int height, boolean hasOpacity, int priority) {
+	public Drawer(BufferedImage image, float x, float y, float width, float height, boolean hasOpacity, int priority) {
 		this.image = image;
 		this.rectangle = new Rectangle(x, y, width, height);
 		this.hasOpcaity = hasOpacity;

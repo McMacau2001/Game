@@ -20,10 +20,10 @@ public class Draw {
 	private Font font;
 	private Game game;
 	
-	private List<Drawer> images = new ArrayList<>();
-	private List<Rectangle> rectangles = new ArrayList<>();
-	private List<Rectangle> fillrectangles = new ArrayList<>();
-	private List<Line2D> line = new ArrayList<>();
+	private List<Drawer> images = new ArrayList<Drawer>();
+	private List<Rectangle> rectangles = new ArrayList<Rectangle>();
+	private List<Rectangle> fillrectangles = new ArrayList<Rectangle>();
+	private List<Line2D> line = new ArrayList<Line2D>();
 	
 	public Draw(Game game, Font font) {
 		this.game = game;

@@ -6,7 +6,7 @@ public class Rectangle {
 	
 	private float x;
 	private float y;
-	
+
 	private float width;
 	private float height;
 	
@@ -32,6 +32,7 @@ public class Rectangle {
 	public void move(Vector2D velocity) {
 		x(x + velocity.x());
 		y(y + velocity.y());
+		
 	}
 	
 	public void render(Draw draw) {

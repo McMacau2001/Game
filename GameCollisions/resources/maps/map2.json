@@ -647,62 +647,7 @@
                  "draworder":"topdown",
                  "id":5,
                  "name":"collides",
-                 "objects":[
-                        {
-                         "height":540.291666666667,
-                         "id":31,
-                         "name":"",
-                         "rotation":0,
-                         "type":"Collider",
-                         "visible":true,
-                         "width":255.25,
-                         "x":-21,
-                         "y":-0.166666666666629
-                        }, 
-                        {
-                         "height":164.25,
-                         "id":32,
-                         "name":"",
-                         "rotation":0,
-                         "type":"Collider",
-                         "visible":true,
-                         "width":266.5,
-                         "x":232,
-                         "y":0
-                        }, 
-                        {
-                         "height":331,
-                         "id":34,
-                         "name":"",
-                         "rotation":0,
-                         "type":"Collider",
-                         "visible":true,
-                         "width":430.515151515152,
-                         "x":-19.3636363636364,
-                         "y":760
-                        }, 
-                        {
-                         "height":130.083333333333,
-                         "id":59,
-                         "name":"",
-                         "rotation":0,
-                         "type":"Collider",
-                         "visible":true,
-                         "width":273,
-                         "x":468.333333333333,
-                         "y":364.583333333333
-                        }, 
-                        {
-                         "height":93.5,
-                         "id":60,
-                         "name":"",
-                         "rotation":0,
-                         "type":"Collider",
-                         "visible":true,
-                         "width":185,
-                         "x":556.25,
-                         "y":468
-                        }],
+                 "objects":[],
                  "opacity":1,
                  "type":"objectgroup",
                  "visible":true,

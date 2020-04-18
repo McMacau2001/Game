@@ -26,8 +26,8 @@ public class Shape {
 	private int height;
 	
 	private ShapeMap map;
-	private List<ShapeExit> exits = new ArrayList<>();
-	private List<ShapeRandom> randoms = new ArrayList<>();
+	private List<ShapeExit> exits = new ArrayList<ShapeExit>();
+	private List<ShapeRandom> randoms = new ArrayList<ShapeRandom>();
 	
 	//Exits
 

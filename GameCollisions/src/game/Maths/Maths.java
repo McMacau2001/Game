@@ -1,5 +1,6 @@
 package game.Maths;
 
+import java.math.BigDecimal;
 import java.util.Random;
 
 public class Maths {
@@ -23,5 +24,17 @@ public class Maths {
 	public static boolean randomBool(Random random) {
 		return randomInt(random, 1, 0) == 1;
 	}
+	
+	public static int roundNumberMultiple(float number, float multiple) {
+		    if (number % multiple < 2.5)
+		        number = number - number % multiple;
+		    else
+		    	number = number + (multiple - number % multiple);
+		
+		   return (int)number;
+
+	}
+	
+	
 	
 }

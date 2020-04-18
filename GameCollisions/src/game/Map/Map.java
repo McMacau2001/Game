@@ -22,8 +22,8 @@ public abstract class Map {
 	protected Point2D spawn;
 	protected Game game;
 	
-	private List<Entity> entities = new ArrayList<>();
-	private List<Object> tiles = new ArrayList<>();
+	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Object> tiles = new ArrayList<Object>();
 	
 	protected abstract void render();
 	protected abstract void tick();
@@ -67,7 +67,7 @@ public abstract class Map {
 		tiles.forEach(x->x.render(render));	
 		
 		mapshape.render(render, player);
-		minimap.render(render, player);
+		//minimap.render(render, player);
 		
 		render();
 	}

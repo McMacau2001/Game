@@ -1,6 +1,9 @@
 package game.Game.Handlers;
 
+import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 import javax.swing.event.MouseInputAdapter;
@@ -12,8 +15,24 @@ public class MouseInput extends MouseInputAdapter {
 	private int mouseX;
 	private int mouseY;
 	
-	ArrayList<Integer> keys = new ArrayList<>();
-
+	ArrayList<Integer> keys = new ArrayList<Integer>();
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+	/*	int position = (int) e.getPreciseWheelRotation();
+		float oldscale = Main.SCALE;
+	
+		Main.SCALE += position;
+		
+		if(Main.SCALE <2)
+			Main.SCALE = 2;
+		if(Main.SCALE >8)
+			Main.SCALE = 8;
+		
+		Main.WIDTH = (int) (Main.WIDTH*Main.SCALE/oldscale);
+		Main.HEIGHT = Main.WIDTH / 16 * 9;*/
+	}
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		updateCoords(e);

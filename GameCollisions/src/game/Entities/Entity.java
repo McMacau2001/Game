@@ -30,9 +30,7 @@ public abstract class Entity extends EntityBody {
 	
 	public void tick(Collisions collisions, Map room) {
 		update();
-		
 		moveEntity(velocity);
-		//collisions.tick(room);
 	}
 	
 	public void render(Draw draw) {
@@ -45,18 +43,6 @@ public abstract class Entity extends EntityBody {
 	
 	public void move(Vector2D velocity) {
 		this.velocity = velocity;
-	}
-	
-	public void teleport(int x, int y) {
-		float velx = x - x();
-		float vely = y - y();
-		this.moveEntity(new Vector2D(velx, vely));
-	}
-	
-	public void teleport(Point2D point) {
-		float velx = (float) (point.getX() - x());
-		float vely = (float) (point.getY() - y());
-		this.moveEntity(new Vector2D(velx, vely));
 	}
 	
 	public boolean isMoving() {

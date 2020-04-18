@@ -10,12 +10,13 @@ import game.Images.ImageManager;
 import game.Images.Sprite;
 import game.Images.SpriteAnimation;
 import game.Images.SpriteSheet;
+import game.Maths.Maths;
 import game.Maths.Rectangle;
 import game.Objects.Object;
 
 public class Player extends Entity {
 	
-	private float speed = 2.8f;
+	private float speed = 2.2f;
 	public Point2D positionToGo;
 	
 	private SpriteAnimation animation;
@@ -26,12 +27,8 @@ public class Player extends Entity {
 	private Sprite attack_right;
 	private Sprite attack_left;
 
-	private Game game;
-
 	public Player(Game game, float x, float y, float width, float height) {
 		super(new Rectangle(x, y, width, height), true);
-		this.game = game;
-		
 	}
 	
 	@Override
@@ -40,6 +37,7 @@ public class Player extends Entity {
 		sheet = new SpriteSheet(ImageManager.loadImage("player.png"), 10, 10);
 		animation = new SpriteAnimation();
 		
+		//11 18 
 		walking_right = new Sprite(sheet, 11, 18, false);
 		walking_left = new Sprite(sheet, 11, 18, true);
 		
@@ -48,11 +46,11 @@ public class Player extends Entity {
 		
 		animation.runSprite(walking_right, 3, true);
 		
+		
 	}
 
 	@Override
 	public void update() {
-	
 		//Key Input
 
 		float velX = 0;
@@ -84,7 +82,6 @@ public class Player extends Entity {
 		movePlayer(velX, velY);
 		
 		if(Game.mouse.isCliked(1)) { 
-			System.out.print("Clicked\n");
 			if(animation.getSprite() == walking_right || animation.getSprite() == attack_right)
 				animation.runSprite(attack_right, 4, false);
 			else if(animation.getSprite() == walking_left || animation.getSprite() == attack_left)
@@ -96,8 +93,8 @@ public class Player extends Entity {
 	}
 
 
-	private void movePlayer(float x, float y) {
 
+	private void movePlayer(float x, float y) {
 		move(x, y);
 		if(animation.getSprite() == attack_left || animation.getSprite() == attack_right)
 			return;
@@ -111,8 +108,11 @@ public class Player extends Entity {
 	
 	@Override
 	public void draw(Draw draw) {
-		animation.drawAnimation(draw, x()-9, y()-11, 0,0, false, 0);	
 
+		//System.out.println(x()+" "+y()+" " +width());
+		animation.drawAnimation(draw, x()-11, y()-13, 0,0, false, 0);	
+		//draw.drawRect(x(), y(), width(), height());
+		//getBodycollide().render(draw);
 	}
 	
 	@Override

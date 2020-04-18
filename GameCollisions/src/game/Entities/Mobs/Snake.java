@@ -21,7 +21,7 @@ public class Snake extends Entity {
 	private Sprite walking_right;
 	private Sprite walking_left;
 	
-	private float speed = 0.8f;
+	private float speed = 0.4f;
 	public Point2D positionToGo;
 	
 	public Snake(int x, int y) {
@@ -31,10 +31,10 @@ public class Snake extends Entity {
 		sheet = new SpriteSheet(ImageManager.loadImage("snake.png"), 8, 5);
 		animation = new SpriteAnimation();
 		
-		walking_right = new Sprite(sheet, 9, 16, false);
-		walking_left = new Sprite(sheet, 9, 16, true);
+		walking_right = new Sprite(sheet, 9, 9, false);
+		walking_left = new Sprite(sheet, 9, 9, true);
 
-		animation.runSprite(walking_right, (int)speed+2, true);
+		animation.runSprite(walking_right, (int)speed+4, true);
 
 	}
 
@@ -53,9 +53,9 @@ public class Snake extends Entity {
 		positionToGo = moveEntityTo(positionToGo, speed);
 		
 		if(getDirection().x()>0) 
-			animation.runSprite(walking_right, (int)speed+2, true);
+			animation.runSprite(walking_right, (int)speed+4, true);
 		else 
-			animation.runSprite(walking_left, (int)speed+2, true);
+			animation.runSprite(walking_left, (int)speed+4, true);
 		
 		animation.runAnimation();
 		

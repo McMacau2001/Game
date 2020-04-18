@@ -13,10 +13,11 @@ import game.Game.Render.Draw;
 import game.Map.MapTile;
 import game.Map.Layers.Group;
 import game.Map.Shape.Shape;
+import game.Maths.Maths;
 
 public class ShapeMap extends ShapeGroup {
 
-	private List<MapTile> tiletorender = new ArrayList<>();
+	private List<MapTile> tiletorender = new ArrayList<MapTile>();
 
 	public ShapeMap(Shape shape, Group group) {
 		super(shape, group);	
@@ -32,7 +33,7 @@ public class ShapeMap extends ShapeGroup {
 		
 		int maxx = Math.min(shape.width()-1, shape.toRelativeCoordX((int)(x + Main.WIDTH * Main.SCALE)));
 		int maxy = Math.min(shape.height()-1, shape.toRelativeCoordY((int)(y + Main.HEIGHT * Main.SCALE)));
-		
+
 		tiletorender.clear();
 		
 		int index = 0;
@@ -56,11 +57,14 @@ public class ShapeMap extends ShapeGroup {
 	
 	public void render(Draw draw, Player player) {
 		tiletorender.forEach(tr -> {
+			
+			//System.out.println((int)(shape.toMapCoordX(tr.x()) * shape.getTilewidth()/4*4)%4);
 			draw.drawImage(tr.image(), 
 					shape.toMapCoordX(tr.x()) * shape.getTilewidth(), 
 					shape.toMapCoordY(tr.y()) * shape.getTileheight(),
 					shape.getTilewidth(), shape.getTileheight(), false, tr.getPriority());
 		});
+		//System.exit(0);
 		
 	}
 	

@@ -10,15 +10,21 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 import game.Main;
 import game.Entities.Camera;
 import game.Entities.Mobs.Scorpion;
+import game.Entities.Mobs.Snake;
 import game.Entities.Player.Player;
 import game.Game.Handlers.Collisions;
 import game.Game.Handlers.KeyInput;
 import game.Game.Handlers.MouseInput;
+import game.Game.KeyBind.FullScreen;
+import game.Game.KeyBind.Pause;
 import game.Game.Render.Draw;
 import game.Game.Render.Render;
 import game.Images.Font;
@@ -41,6 +47,7 @@ public class Game extends Canvas implements Runnable {
 
 	private JFrame frame;
 	
+	private boolean paused = false;
 	private boolean running = false;
 	private Thread thread;
 	
@@ -51,7 +58,7 @@ public class Game extends Canvas implements Runnable {
 	protected Render render;
 	protected Font font;
 	
-	private HashMap<String,Map> rooms = new HashMap<>();
+	private HashMap<String,Map> rooms = new HashMap<String,Map>();
 	private Map activeRoom;
 	
 	private int fps_cap;
@@ -59,10 +66,10 @@ public class Game extends Canvas implements Runnable {
 	public Game(int fps_cap) {
 		this.fps_cap = fps_cap;
 		
-		Dimension d = new Dimension((int)(Main.WIDTH * Main.SCALE), (int)(Main.HEIGHT * Main.SCALE));
+		Dimension d = new Dimension((int)(Main.STARTWIDTH * Main.SCALE), (int)(Main.STARTHEIGHT * Main.SCALE));
 		setPreferredSize(d);
-		setMaximumSize(d);
-		setMinimumSize(d);
+		//setMaximumSize(d);
+		//setMinimumSize(d);
 		setBackground(Color.BLACK);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -73,9 +80,15 @@ public class Game extends Canvas implements Runnable {
 		frame.add(this);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		//KeyBind
+		addKeyBinding(frame.getRootPane(), "F11", new FullScreen(frame));
+		addKeyBinding(frame.getRootPane(), "ESCAPE", new FullScreen(frame));
+		
+		addKeyBinding(frame.getRootPane(), "P", new Pause(this));
 			
 	}
 	
@@ -92,15 +105,18 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		long timer = System.currentTimeMillis();
 		
-		while(running) {
+		while(running) {	
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			deltafps += (now - lastTime) / nsfps;
 			lastTime = now;
 			
-			while(delta >=1) {
-				tick();
+			if(paused)
+				delta = 0;
+			
+			if(delta >=1) {
 				delta--;
+				tick();
 				updates++;
 			}
 			
@@ -145,58 +161,60 @@ public class Game extends Canvas implements Runnable {
 		System.exit(1);
 	}
 
+	private Snake snake;
+	
 	private void init() {
 		addKeyListener(input = new KeyInput());
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		addMouseWheelListener(mouse);
 		
 		render = new Render(Main.WIDTH, Main.HEIGHT, this);
 
-		camera = new Camera(this, 0, 0);
+		camera = new Camera(this);
 		font = new Font();
 		draw = new Draw(this, font);
 		
-		player = new Player(this, 0, 0, 13, 20);
-		
+		player = new Player(this, 0, 0, 12, 18);
+		snake = new Snake(-200,-100);
+				
 		//TODO a shape nao precisa de bioma....
 		Shape shape = ShapeLoader.loadTiledMap("map2.json", Biomes.FOREST.getTile());
 		rooms.put("A",activeRoom = new MapA(this, shape, Biomes.FOREST));
 	
 		activeRoom.roomload(player);
+		activeRoom.getEntities().add(snake);
 		
 		requestFocus();
 	}
 	
+
+	
 	private void tick() {
-		
-		camera.centerOnLocation(player, activeRoom);
 		
 		if(activeRoom != null)
 			activeRoom.roomtick(collisions);
+		camera.centerOnLocation(player);
 		
 		if(activeRoom != null)
 			activeRoom.roompredraw(draw, player);
 		
 		render.prerender(activeRoom, draw, player);
-		
+
 		mouse.clearCache();
 	}
 	
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();		
+
 		if(bs == null) {
 			createBufferStrategy(2);
 			return;
 		}
-
+		
 		Graphics g = bs.getDrawGraphics();
-		
-		draw.drawString("Vem Monstro", 5*5, 70, 10, -100, false);
-		draw.drawString("DEVE SER DEVE", 10, 150, 5*5 + 10, -100, false);
-		draw.drawString("IRINEU", 7, player.x()-15, player.y()-12, -100, true);
-		
 		render.render(g, draw, this, player);
-		
+			
 		g.dispose();
 		bs.show();
 		
@@ -211,6 +229,11 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 	
+	public static final void addKeyBinding(JComponent c, String key, final Action action) {
+		c.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key), key);
+		c.getActionMap().put(key, action);
+	}
+	 
 	public static Collisions getCollisions() {
 		return collisions;
 	}
@@ -225,6 +248,14 @@ public class Game extends Canvas implements Runnable {
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public boolean isPaused() {
+		return paused;
+	}
+	
+	public void setPaused(boolean paused) {
+		this.paused = paused;
 	}
 
 }

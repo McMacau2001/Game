@@ -16,8 +16,8 @@ import game.Objects.Object;
 
 public abstract class ShapeGroup {
 
-	protected LinkedHashMap<String, BufferedImage[][]> tiles = new LinkedHashMap<>();
-	protected List<Object> objects = new ArrayList<>();
+	protected LinkedHashMap<String, BufferedImage[][]> tiles = new LinkedHashMap<String, BufferedImage[][]>();
+	protected List<Object> objects = new ArrayList<Object>();
 	
 	protected Shape shape;
 	protected SpriteSheet sheet;

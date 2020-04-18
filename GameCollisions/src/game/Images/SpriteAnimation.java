@@ -2,7 +2,9 @@ package game.Images;
 
 import java.awt.image.BufferedImage;
 
+import game.Main;
 import game.Game.Render.Draw;
+import game.Maths.Maths;
 
 public class SpriteAnimation {
 
@@ -53,7 +55,10 @@ public class SpriteAnimation {
 	}
 
 	public void drawAnimation(Draw draw, double x, double y, float xOffSet, float yOffSet, boolean opacity, int priority) {
-		draw.drawImage(currentImage, (int) (x + xOffSet), (int) (y + yOffSet), opacity, priority);
+		int vx = Maths.roundNumberMultiple((float) (x + xOffSet), 1);
+		int vy = Maths.roundNumberMultiple((float) (y + yOffSet), 1);
+		
+		draw.drawImage(currentImage, vx, vy, opacity, priority);
 	}
 	
 	public void runSprite(Sprite sprite, int speed, boolean isInfinit) {

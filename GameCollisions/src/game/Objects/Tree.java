@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import game.Game.Render.Draw;
 import game.Images.ImageManager;
+import game.Maths.Maths;
 import game.Maths.Rectangle;
 
 public class Tree extends Object {
@@ -11,7 +12,14 @@ public class Tree extends Object {
 	private BufferedImage image;
 
 	public Tree() {
-		this.image = ImageManager.loadImage("tree.png");
+		boolean a = Maths.randomBool();
+		
+		if(a)this.image = ImageManager.loadImage("tree.png");
+		else this.image = ImageManager.loadImage("tree1.png");
+		
+		boolean b = Maths.randomBool();
+		if(b)
+			this.image = ImageManager.flip(this.image);
 	}
 	
 	@Override

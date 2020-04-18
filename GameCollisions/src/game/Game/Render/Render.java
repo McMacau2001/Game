@@ -18,6 +18,7 @@ import game.Entities.Player.Player;
 import game.Game.Game;
 import game.Map.Map;
 import game.Map.Shape.Shape;
+import game.Maths.Maths;
 import game.Maths.Rectangle;
 
 public class Render {
@@ -28,22 +29,23 @@ public class Render {
 
 
 	public Render(int width, int height, Game game) {
-		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		this.width = width;
 		this.height = height;
 	}
 	
 	public void prerender(Map map, Draw draw, Player player) {
+		this.image = new BufferedImage(Main.WIDTH, Main.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		
 		Graphics2D g2d = image.createGraphics();
 		
 		Camera camera = draw.getCamera();
 		Rectangle p = new Rectangle(camera.toXLocation(player.getBodycollide().x()), camera.toYLocation(player.getBodycollide().y()), player.getBodycollide().width(), player.getBodycollide().height());
 		
 		g2d.setColor(map.getBiome().getBackground());
-		g2d.fillRect(0, 0, width, height);
+		g2d.fillRect(0, 0, this.image.getWidth(), this.image.getHeight());
 		
 		draw.getImages().stream()
-		.filter(x->x.isInsideScreen(camera))
+.filter(x->x.isInsideScreen(camera))
 		.sorted((i1, i2) -> i1.getHeightRelative().compareTo(i2.getHeightRelative()))
 		.sorted(Comparator.comparing(Drawer::getPriority).reversed())
 		.forEach(img-> {
@@ -51,10 +53,11 @@ public class Render {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) 1));
 			if(img.isOpcaity() && img.getRectangle().collide(p))
 				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) 0.50));
-			
+
+			//System.out.print(Maths.roundNumberMultiple(img.getRectangle().x(), Main.SCALE)+"\n");
 			g2d.drawImage(img.getImage(),
-					(int)(img.getRectangle().x()),
-					(int)(img.getRectangle().y()), null);
+					(int)img.getRectangle().x(),
+					(int)img.getRectangle().y(), null);
 			
 			/*
 			g2d.setColor(Color.RED);

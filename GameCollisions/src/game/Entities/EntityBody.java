@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import game.Main;
 import game.Maths.Rectangle;
 import game.Maths.Vector2D;
 
@@ -20,7 +21,7 @@ public class EntityBody{
 	private Rectangle right;
 	private Rectangle left;
 	
-	private ArrayList<Integer> collidingFaces = new ArrayList<>();
+	private ArrayList<Integer> collidingFaces = new ArrayList<Integer>();
 	
 	public EntityBody(Rectangle body) {
 		this.bodycollide = body;
@@ -53,7 +54,7 @@ public class EntityBody{
 		
 		return true;
 		
-	}
+	}	
 	
 	public Point2D moveEntityTo(Point2D position, float speed) {
 		if(position != null) {
@@ -61,14 +62,12 @@ public class EntityBody{
 			
 			float hypotenuse = (float) entity.distance(position);
 			
-			//System.out.print(speed+"-"+hypotenuse + " "+position.getX() + "-" + position.getY()+" FDS\n");
-			
 			if(hypotenuse >= speed) {
 				float cattetx = (float) (position.getX() - entity.getX());
 				float cattety = (float) (position.getY() - entity.getY());
 				
-				float xv = (speed * cattetx / hypotenuse);
-				float yv = (speed * cattety / hypotenuse);
+				float xv = (float) (speed * cattetx / hypotenuse);
+				float yv = (float) (speed * cattety / hypotenuse);
 	
 				moveEntity(new Vector2D(xv, yv));
 				
@@ -78,6 +77,18 @@ public class EntityBody{
 				
 		}
 		return null;
+	}
+	
+	public void teleport(int x, int y) {
+		float velx = x - x();
+		float vely = y - y();
+		this.moveEntity(new Vector2D(velx, vely));
+	}
+	
+	public void teleport(Point2D point) {
+		float velx = (float) (point.getX() - x());
+		float vely = (float) (point.getY() - y());
+		this.moveEntity(new Vector2D(velx, vely));
 	}
 	
 	//******************

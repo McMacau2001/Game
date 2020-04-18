@@ -7,17 +7,18 @@ import game.Game.Game;
 import game.Map.Map;
 import game.Map.Shape.Shape;
 import game.Map.Shape.Groups.ShapeMap;
+import game.Maths.Maths;
 
 public class Camera {
 	
 	//private Game game;
 	
-	private int xOffset;
-	private int yOffset;
+	private float xOffset;
+	private float yOffset;
 	
-	public Camera(Game game, int xOffset, int yOffset) {
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
+	public Camera(Game game) {
+		this.xOffset = 0;
+		this.yOffset = 0;
 	}
 	
 	public void move(float x, float y) {
@@ -25,14 +26,14 @@ public class Camera {
 		this.yOffset += y;
 	}
 	
-	public void centerOnLocation(Entity entity, Map map) {
-		Shape shape = map.getMapshape().getShape();
+	public void centerOnLocation(Entity entity) {
 
-		int x = (int)(entity.x()+entity.width()/2 * 0.2);
-		int y = (int) (entity.y()+entity.height()/2* 0.2);
+		float x = (entity.x()+entity.width()/2);
+		float y = (entity.y()+entity.height()/2);
 
-		xOffset = (int)x - (Main.WIDTH / 2);
-		yOffset = (int)y - (Main.HEIGHT / 2);
+		xOffset = x - (Main.WIDTH / 2);
+		yOffset = y - (Main.HEIGHT / 2);
+
 		
 		//TODO isto vai sair
 		//FIX X

@@ -18,6 +18,7 @@ public class KeyInput extends KeyAdapter {
 		int key = e.getKeyCode();
 		if(isPressedKey(key))
 			keys.remove((Integer)key);
+		
 	}
 	
 	public boolean isPressedKey(int key) {

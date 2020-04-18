@@ -15,7 +15,7 @@ import game.Map.Shape.Shape;
 public class MapA extends Map {
 
 	public MapA(Game game, Shape shape, Biomes biome) {
-		super(game, new Point(-200,-100), biome, shape.createRandom(new Random()));
+		super(game, new Point(0,0), biome, shape.createRandom(new Random()));
 	}
 
 	@Override
@@ -31,9 +31,9 @@ public class MapA extends Map {
 
 	@Override
 	protected void tick() {
-		if(getEntities().size()<20) {
+		if(getEntities().size()<12) {
 			addEntity(new Bat(-300,-200));
-			addEntity(new Snake(-300,-200));
+			addEntity(new Snake(-200,-100));
 			addEntity(new Scorpion(-300,-200));
 		}
 	}
