@@ -67,7 +67,7 @@ public abstract class Map {
 		tiles.forEach(x->x.render(render));	
 		
 		mapshape.render(render, player);
-		//minimap.render(render, player);
+		minimap.render(render, player);
 		
 		render();
 	}

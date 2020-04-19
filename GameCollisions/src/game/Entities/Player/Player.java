@@ -1,7 +1,8 @@
 package game.Entities.Player;
 
-import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+
+import com.jogamp.newt.event.KeyEvent;
 
 import game.Entities.Entity;
 import game.Game.Game;
@@ -13,6 +14,8 @@ import game.Images.SpriteSheet;
 import game.Maths.Maths;
 import game.Maths.Rectangle;
 import game.Objects.Object;
+import opengl.engine.GameLoop;
+import opengl.input.KeyInput;
 
 public class Player extends Entity {
 	
@@ -55,20 +58,23 @@ public class Player extends Entity {
 
 		float velX = 0;
 		float velY = 0;
-			
-		if(Game.input.isPressedKey(KeyEvent.VK_D)) {
+		
+		float xInput = 0;
+		float yInput = 0;
+		
+		if(KeyInput.getKey(KeyEvent.VK_D)) {
 			velX = speed;//movePlayer(speed , 0);
 			positionToGo = null;
 		}
-		if(Game.input.isPressedKey(KeyEvent.VK_A)) {
+		if(KeyInput.getKey(KeyEvent.VK_A)) {
 			velX = -speed; //movePlayer(-speed , 0);		
 			positionToGo = null;
 		}
-		if(Game.input.isPressedKey(KeyEvent.VK_S))  {
+		if(KeyInput.getKey(KeyEvent.VK_S))  {
 			velY = speed; //movePlayer(0 , speed);
 			positionToGo = null;
 		}	
-		if(Game.input.isPressedKey(KeyEvent.VK_W)) {
+		if(KeyInput.getKey(KeyEvent.VK_W)) {
 			velY = -speed; //movePlayer(0 , -speed);
 			positionToGo = null;
 		}	

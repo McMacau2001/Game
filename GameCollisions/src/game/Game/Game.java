@@ -8,7 +8,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JComponent;
@@ -34,6 +36,7 @@ import game.Map.Biomes;
 import game.Map.Maps.MapA;
 import game.Map.Shape.Shape;
 import game.Map.Shape.ShapeLoader;
+import opengl.Renderer;
 
 public class Game extends Canvas implements Runnable {
 
@@ -71,12 +74,14 @@ public class Game extends Canvas implements Runnable {
 		//setMaximumSize(d);
 		//setMinimumSize(d);
 		setBackground(Color.BLACK);
+		setIgnoreRepaint(true);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Cursor c = toolkit.createCustomCursor(ImageManager.loadImage("cursor.png") , new Point(this.getX(), this.getY()), "Cursor");
 		setCursor (c);
 		
 		frame = new JFrame(Main.TITLE);
+		/*frame.setIgnoreRepaint(true);
 		frame.add(this);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,8 +94,11 @@ public class Game extends Canvas implements Runnable {
 		addKeyBinding(frame.getRootPane(), "ESCAPE", new FullScreen(frame));
 		
 		addKeyBinding(frame.getRootPane(), "P", new Pause(this));
+		*/
 			
 	}
+	
+	private List<Integer> fpsaverage = new ArrayList<Integer>();
 	
 	public void run() {
 		init();
@@ -128,8 +136,21 @@ public class Game extends Canvas implements Runnable {
 
 			
 			if(System.currentTimeMillis() - timer > 1000) {
+				fpsaverage.add(frames);
+				int totalfps = 0;
+				for(int i : fpsaverage)
+					totalfps+=i;
+				
+				int fpsavg = totalfps / fpsaverage.size();
+				
+				if(fpsaverage.size()>10) {
+					fpsaverage.clear();
+					fpsaverage.add(fpsavg);
+				}
+						
 				timer += 1000;
-				frame.setTitle(Main.TITLE + " TICKS: "+updates + " FPS: "+frames + " X: "+((int)player.x()) + " Y: "+((int) + player.y()));
+				Renderer.getWindow().setTitle(Main.TITLE + " TICKS: "+updates + " FPS: "+frames + " FPS AVG: "+fpsavg);
+				//frame.setTitle(Main.TITLE + " TICKS: "+updates + " FPS: "+frames + " FPS AVG: "+fpsavg);
 				updates = 0;
 				frames = 0;
 			}
@@ -158,6 +179,7 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 		
+		Renderer.getWindow().destroy();
 		System.exit(1);
 	}
 
@@ -169,7 +191,7 @@ public class Game extends Canvas implements Runnable {
 		addMouseMotionListener(mouse);
 		addMouseWheelListener(mouse);
 		
-		render = new Render(Main.WIDTH, Main.HEIGHT, this);
+		render = new Render(this);
 
 		camera = new Camera(this);
 		font = new Font();
@@ -183,7 +205,7 @@ public class Game extends Canvas implements Runnable {
 		rooms.put("A",activeRoom = new MapA(this, shape, Biomes.FOREST));
 	
 		activeRoom.roomload(player);
-		activeRoom.getEntities().add(snake);
+		//activeRoom.getEntities().add(snake);
 		
 		requestFocus();
 	}
@@ -205,7 +227,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void render() {
-		BufferStrategy bs = this.getBufferStrategy();		
+		/*BufferStrategy bs = this.getBufferStrategy();		
 
 		if(bs == null) {
 			createBufferStrategy(2);
@@ -214,9 +236,19 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		render.render(g, draw, this, player);
-			
-		g.dispose();
-		bs.show();
+		
+	    if( !bs.contentsLost() )
+			bs.show();
+	        
+	    //Thread.yield();
+	      
+		g.dispose();*/
+		//BufferStrategy bs = this.getBufferStrategy();	
+		
+		//Graphics g = null;//bs.getDrawGraphics();
+		//render.render(null, null, this, player);
+		
+		Renderer.render();
 		
 	}
 	
@@ -258,4 +290,7 @@ public class Game extends Canvas implements Runnable {
 		this.paused = paused;
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
 }

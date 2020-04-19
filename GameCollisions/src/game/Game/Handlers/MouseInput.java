@@ -19,7 +19,7 @@ public class MouseInput extends MouseInputAdapter {
 	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-	/*	int position = (int) e.getPreciseWheelRotation();
+		int position = (int) e.getPreciseWheelRotation();
 		float oldscale = Main.SCALE;
 	
 		Main.SCALE += position;
@@ -30,7 +30,7 @@ public class MouseInput extends MouseInputAdapter {
 			Main.SCALE = 8;
 		
 		Main.WIDTH = (int) (Main.WIDTH*Main.SCALE/oldscale);
-		Main.HEIGHT = Main.WIDTH / 16 * 9;*/
+		Main.HEIGHT = Main.WIDTH / 16 * 9;
 	}
 	
 	@Override

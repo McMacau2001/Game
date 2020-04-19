@@ -3,8 +3,12 @@ package game.Game.Render;
 import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.DisplayMode;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
@@ -16,25 +20,32 @@ import game.Main;
 import game.Entities.Camera;
 import game.Entities.Player.Player;
 import game.Game.Game;
+import game.Images.ImageManager;
 import game.Map.Map;
 import game.Map.Shape.Shape;
 import game.Maths.Maths;
 import game.Maths.Rectangle;
+import opengl.resource.ImageResource;
 
 public class Render {
 	
-	private BufferedImage image;
-	private int width;
-	private int height;
+	private static GraphicsEnvironment ge;
+	private static GraphicsDevice gd;
+	private static GraphicsConfiguration gc;
+	
+	private  static BufferedImage image;
+	private static ImageResource img;
 
+	public Render(Game game) {
+		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		gd = ge.getDefaultScreenDevice();
+		gc = gd.getDefaultConfiguration();
 
-	public Render(int width, int height, Game game) {
-		this.width = width;
-		this.height = height;
 	}
 	
-	public void prerender(Map map, Draw draw, Player player) {
-		this.image = new BufferedImage(Main.WIDTH, Main.HEIGHT, BufferedImage.TYPE_INT_RGB);
+	public static  void prerender(Map map, Draw draw, Player player) {
+		//this.image = new BufferedImage(Main.WIDTH, Main.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		image = gc.createCompatibleImage(Main.WIDTH, Main.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		
 		Graphics2D g2d = image.createGraphics();
 		
@@ -42,10 +53,10 @@ public class Render {
 		Rectangle p = new Rectangle(camera.toXLocation(player.getBodycollide().x()), camera.toYLocation(player.getBodycollide().y()), player.getBodycollide().width(), player.getBodycollide().height());
 		
 		g2d.setColor(map.getBiome().getBackground());
-		g2d.fillRect(0, 0, this.image.getWidth(), this.image.getHeight());
+		g2d.fillRect(0, 0, image.getWidth(), image.getHeight());
 		
 		draw.getImages().stream()
-.filter(x->x.isInsideScreen(camera))
+		.filter(x->x.isInsideScreen(camera))
 		.sorted((i1, i2) -> i1.getHeightRelative().compareTo(i2.getHeightRelative()))
 		.sorted(Comparator.comparing(Drawer::getPriority).reversed())
 		.forEach(img-> {
@@ -86,12 +97,25 @@ public class Render {
 		draw.getLine().clear();
 		draw.getImages().clear();
 		
+		img = new ImageResource(image);
+		
+		
 	}
 	
-	public void render(Graphics  g, Draw draw, Canvas canvas, Player player) {
+	private static float x = 0;
+	public static void render(int width, int height) {
 		//prerender(draw, player);
 	
-		g.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+		/*
+		if(x == 10)
+			x=0;
+		*/
+		
+		opengl.Graphics.setColor(1, 1, 1, 1);
+		if(img != null)
+			opengl.Graphics.drawImage(img, 0, 0, 4, 2.5F);
+		//opengl.Graphics.setRotation(x+=0.1f);
+		//g.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 	
 	}
 	
